@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -35,6 +36,7 @@ import com.layssilvestre.fachada.Fachada;
 import com.layssilvestre.mensalidade.Mensalidade;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import com.toedter.calendar.JDateChooser;
 
 public class JFAtendimentoCliente extends JFrame {
 
@@ -45,6 +47,7 @@ public class JFAtendimentoCliente extends JFrame {
 	private JComboBox<String> cBatividadeList;
 	private DefaultTableModel defaultTable;
 	private JComboBox cBparcela;
+	private JDateChooser dcData;
 
 	/**
 	 * Launch the application.
@@ -158,27 +161,31 @@ public class JFAtendimentoCliente extends JFrame {
 		JLabel lblValorr = new JLabel("Valor (R$)");
 		
 		JPanel panel_2 = new JPanel();
+		
+		 dcData = new JDateChooser();
+		
+		JLabel label = new JLabel("Parcela");
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
-							.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
-								.addContainerGap()
-								.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
-									.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
-									.addComponent(cBClienteList, GroupLayout.PREFERRED_SIZE, 335, GroupLayout.PREFERRED_SIZE)))
-							.addGroup(gl_panel.createSequentialGroup()
-								.addGap(29)
-								.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-									.addComponent(lblValorr, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
-									.addGroup(gl_panel.createSequentialGroup()
-										.addComponent(txtValor, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-											.addComponent(cBparcela, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
-											.addComponent(lblParcela, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE))))))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
+								.addComponent(cBClienteList, GroupLayout.PREFERRED_SIZE, 335, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(29)
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addComponent(txtValor, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblValorr, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE))
+							.addGap(30)
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(lblParcela, GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+								.addComponent(label, GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+								.addComponent(cBparcela, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
+								.addComponent(dcData, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addContainerGap()
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
@@ -202,19 +209,23 @@ public class JFAtendimentoCliente extends JFrame {
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(cBatividadeList, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
-							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
 								.addGroup(gl_panel.createSequentialGroup()
-									.addGap(18)
+									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(lblParcela)
-									.addGap(6)
-									.addComponent(cBparcela, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(cBparcela, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(label)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(dcData, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 								.addGroup(gl_panel.createSequentialGroup()
 									.addGap(9)
 									.addComponent(lblValorr)
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(txtValor, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE))))
 						.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 211, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap())
+					.addGap(19))
 		);
 		gl_panel.linkSize(SwingConstants.HORIZONTAL, new Component[] {cBClienteList, cBatividadeList});
 		
@@ -328,6 +339,7 @@ public class JFAtendimentoCliente extends JFrame {
 		} catch (ClassNotFoundException | SQLException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
 		}
 	
 	
@@ -338,9 +350,10 @@ public class JFAtendimentoCliente extends JFrame {
 		String nomeAluno = cBClienteList.getSelectedItem().toString();
 		double valor = Double.parseDouble(txtValor.getText());
 		String status= "aberto";
+		Date data =dcData.getDate();
 		
 		Mensalidade mensalidade = new Mensalidade(tipo, parcela, status, nomeAluno, valor);
-		Fachada.getInstance().gerarMensalide(mensalidade);
+		Fachada.getInstance().gerarMensalide(mensalidade,data);
 		
 	}
 	private void listar() throws ClassNotFoundException, SQLException, IOException {
@@ -370,5 +383,4 @@ public class JFAtendimentoCliente extends JFrame {
 		Fachada.getInstance().salvarMensalidade(mensalidade);
 	
 	}
-	
 }

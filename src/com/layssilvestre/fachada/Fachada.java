@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.layssilvestre.atendimento.Atendimento;
 import com.layssilvestre.atendimento.ControleAtendimento;
@@ -174,8 +175,8 @@ public class Fachada {
 		return controladorMensalidade.pesquisarAtividade(atividade);
 	}
 	
-	public void gerarMensalide (Mensalidade mensalidade){
-		controladorMensalidade.gerarMensalide(mensalidade);
+	public void gerarMensalide (Mensalidade mensalidade,Date data){
+		controladorMensalidade.gerarMensalide(mensalidade,data);
 	}
 	public ArrayList<Mensalidade> listarMensalidade(){
 		return controladorMensalidade.listarMensalidade();

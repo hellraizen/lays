@@ -52,11 +52,12 @@ public class RepositorioMensalidade implements IRepositorioMensalidade{
 	}
 	
 	
-	public void gerarMensalide (Mensalidade mensalidade){
+	public void gerarMensalide (Mensalidade mensalidade,Date data){
 		int parcela = mensalidade.getParcela();
 	
 		for (int i = 0; i < parcela; i++) {
 			Calendar c = Calendar.getInstance();
+			c.setTime(data);
 			c.add(Calendar.MONTH,i );
 			
 			String dataCorrente = TrataDataBr.trataData(c.getTime());

@@ -3,6 +3,7 @@ package com.layssilvestre.mensalidade;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ControleMensalidade {
 
@@ -16,8 +17,8 @@ public class ControleMensalidade {
 	public String pesquisarAtividade(String atividade) throws SQLException{
 		return repositorioMensalidade.pesquisarAtividade(atividade);
 	}
-	public void gerarMensalide (Mensalidade mensalidade){
-		repositorioMensalidade.gerarMensalide(mensalidade);
+	public void gerarMensalide (Mensalidade mensalidade,Date data){
+		repositorioMensalidade.gerarMensalide(mensalidade,data);
 	}
 	public ArrayList<Mensalidade> listarMensalidade(){
 		return repositorioMensalidade.listarMensalidade();

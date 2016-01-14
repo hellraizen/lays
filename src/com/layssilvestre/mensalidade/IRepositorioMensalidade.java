@@ -3,11 +3,12 @@ package com.layssilvestre.mensalidade;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public interface IRepositorioMensalidade {
 	public String pesquisarAtividade(String atividade) throws SQLException;
 	
-	public void gerarMensalide(Mensalidade mensalidade);
+	public void gerarMensalide(Mensalidade mensalidade,Date data);
 	public ArrayList<Mensalidade> listarMensalidade();
 	public void salvarMensalidade(ArrayList<Mensalidade> array) throws SQLException;
 	public void limpararray();
