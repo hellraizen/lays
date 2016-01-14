@@ -20,12 +20,9 @@ public class ControladorCliente {
 	}
 
 	public void cadastrar(Cliente cliente) throws SQLException, ClienteJaCadastradoException, ClienteCpfInvalidoException {
-		if (!ValidarCPF.validaCPF(cliente.getCpf())) {
-			throw new ClienteCpfInvalidoException();
-		} else {
+	
 			repositorioCliente.cadastrar(cliente);
-		}
-		
+			
 	}
 
 	public void atualizar(Cliente cliente) throws SQLException, ClienteNaoEncontradoException {
@@ -52,6 +49,9 @@ public class ControladorCliente {
 		
 		return repositorioCliente.listar();
 	}
-	
+	public Cliente procurarNomeCliente(String nome1) throws SQLException {
+		return repositorioCliente.procurarNomeCliente(nome1);
+		
+	}
 
 }
